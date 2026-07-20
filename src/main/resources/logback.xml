@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JASMINE Logback Configuration
+    
+    Logging Strategy:
+    - CONSOLE appender: Human-readable, colorized output for development
+    - FILE appender: Rolling file with size and time-based rotation for production diagnostics
+    
+    Log Levels:
+    - com.jasmine: DEBUG (captures all application-level diagnostics)
+    - Root: INFO (third-party libraries log only warnings and errors)
+    
+    File Rotation:
+    - Max file size: 10 MB per file
+    - Max history: 30 days of logs retained
+    - Total cap: 100 MB to prevent disk exhaustion
+-->
+<configuration>
+
+    <!-- Log pattern: timestamp [thread] LEVEL logger - message -->
+    <property name="LOG_PATTERN"
+              value="%d{HH:mm:ss.SSS} [%-15.15thread] %-5level %-36.36logger{36} - %msg%n"/>
+
+    <!-- ── Console Appender ──────────────────────────────────────────────── -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ── Rolling File Appender ─────────────────────────────────────────── -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/jasmine.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/jasmine-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ── Application Logger ────────────────────────────────────────────── -->
+    <!-- All JASMINE classes log at DEBUG level for full diagnostic visibility -->
+    <logger name="com.jasmine" level="DEBUG"/>
+
+    <!-- ── Root Logger ───────────────────────────────────────────────────── -->
+    <!-- Third-party libraries (JavaFX, SQLite, etc.) only log at INFO+ -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
