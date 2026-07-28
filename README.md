@@ -10,7 +10,7 @@ JASMINE is a research-oriented Java desktop application designed to analyze JVM 
 
 ## Technology Stack
 
-- Java 21
+- Java 25
 - JavaFX
 - Maven
 - SQLite
