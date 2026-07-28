@@ -47,7 +47,7 @@ public final class AppConstants {
     public static final double WINDOW_MIN_WIDTH = 1280;
 
     /** Minimum window height in pixels. */
-    public static final double WINDOW_MIN_HEIGHT = 800;
+    public static final double WINDOW_MIN_HEIGHT = 720;
 
     /**
      * Default window width in pixels.
@@ -62,7 +62,7 @@ public final class AppConstants {
     // ── Sidebar ─────────────────────────────────────────────────────────────
 
     /** Fixed sidebar width in pixels, matching IntelliJ IDEA's tool window width. */
-    public static final double SIDEBAR_WIDTH = 240;
+    public static final double SIDEBAR_WIDTH = 220;
 
     // ── Refresh Intervals ───────────────────────────────────────────────────
 

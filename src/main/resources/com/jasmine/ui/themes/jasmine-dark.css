@@ -1,10 +1,11 @@
 /*
  * ============================================================================
- * JASMINE Dark Theme
+ * JASMINE Dark Theme — Sprint 2
  * ============================================================================
  *
  * Design Philosophy:
  *   - Professional engineering software aesthetic (IntelliJ IDEA, VisualVM)
+ *   - Compact, information-dense layout with minimal wasted space
  *   - Flat design with subtle depth through background gradients, not shadows
  *   - High contrast text on dark backgrounds for readability
  *   - Muted accent colors that convey meaning without visual noise
@@ -16,6 +17,12 @@
  *   Accent:      #4fc3f7 (light blue — professional, calm, technical)
  *   Status:      #66bb6a (success), #ffa726 (warning), #ef5350 (danger)
  *
+ * Sprint 2 Changes:
+ *   - Reduced base font from 13px → 12px for higher information density
+ *   - Reduced padding across sidebar, header, footer, and cards
+ *   - Added compact card row styling for key-value property layout
+ *   - Added toolbar and status bar specific styles
+ *
  * ============================================================================
  */
 
@@ -25,7 +32,7 @@
 .root {
     -fx-background-color: #1a1a2e;
     -fx-font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
     -fx-text-fill: #e0e0e0;
 
     /* Design Tokens — Referenced throughout the stylesheet */
@@ -69,34 +76,34 @@
 }
 
 .sidebar-header {
-    -fx-padding: 24 20 20 20;
+    -fx-padding: 14 16 12 16;
     -fx-border-color: transparent transparent -jasmine-border transparent;
     -fx-border-width: 0 0 1 0;
 }
 
 .sidebar-title {
-    -fx-font-size: 22px;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: -jasmine-accent;
 }
 
 .sidebar-subtitle {
-    -fx-font-size: 11px;
+    -fx-font-size: 10px;
     -fx-text-fill: -jasmine-text-secondary;
-    -fx-padding: 4 0 0 0;
+    -fx-padding: 2 0 0 0;
 }
 
 .sidebar-section-label {
     -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-text-fill: -jasmine-text-tertiary;
-    -fx-padding: 16 20 6 20;
+    -fx-padding: 12 16 4 16;
     -fx-text-transform: uppercase;
 }
 
 .nav-item {
     -fx-background-color: transparent;
-    -fx-padding: 10 20 10 20;
+    -fx-padding: 7 16 7 16;
     -fx-cursor: hand;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
@@ -104,7 +111,7 @@
 
 .nav-item .label {
     -fx-text-fill: -jasmine-text-secondary;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
 }
 
 .nav-item:hover {
@@ -128,8 +135,8 @@
 }
 
 .nav-icon {
-    -fx-font-size: 15px;
-    -fx-min-width: 24;
+    -fx-font-size: 13px;
+    -fx-min-width: 20;
     -fx-alignment: center;
 }
 
@@ -142,25 +149,35 @@
 }
 
 
-/* ── Page Header ─────────────────────────────────────────────────────────── */
+/* ── Toolbar / Page Header ───────────────────────────────────────────────── */
 
-.page-header {
+.toolbar {
     -fx-background-color: -jasmine-bg-secondary;
-    -fx-padding: 20 30 20 30;
+    -fx-padding: 8 20 8 20;
     -fx-border-color: transparent transparent -jasmine-border transparent;
     -fx-border-width: 0 0 1 0;
+    -fx-spacing: 20;
 }
 
-.page-title {
-    -fx-font-size: 20px;
+.toolbar-title {
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: -jasmine-text-primary;
+    -fx-text-fill: -jasmine-accent;
 }
 
-.page-subtitle {
-    -fx-font-size: 12px;
+.toolbar-separator {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jasmine-text-tertiary;
+}
+
+.toolbar-label {
+    -fx-font-size: 11px;
     -fx-text-fill: -jasmine-text-secondary;
-    -fx-padding: 4 0 0 0;
+}
+
+.toolbar-value {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jasmine-text-primary;
 }
 
 
@@ -168,16 +185,16 @@
 
 .status-pill {
     -fx-background-color: rgba(79, 195, 247, 0.12);
-    -fx-background-radius: 12;
-    -fx-padding: 4 14 4 14;
-    -fx-border-radius: 12;
+    -fx-background-radius: 10;
+    -fx-padding: 3 10 3 10;
+    -fx-border-radius: 10;
     -fx-border-color: rgba(79, 195, 247, 0.3);
     -fx-border-width: 1;
 }
 
 .status-pill .label {
     -fx-text-fill: -jasmine-accent;
-    -fx-font-size: 11px;
+    -fx-font-size: 10px;
     -fx-font-weight: bold;
 }
 
@@ -204,11 +221,11 @@
 
 .metric-card {
     -fx-background-color: -jasmine-bg-card;
-    -fx-background-radius: 8;
+    -fx-background-radius: 6;
     -fx-border-color: -jasmine-border;
-    -fx-border-radius: 8;
+    -fx-border-radius: 6;
     -fx-border-width: 1;
-    -fx-padding: 20;
+    -fx-padding: 10 12 10 12;
     -fx-effect: null;
 }
 
@@ -218,40 +235,19 @@
 }
 
 .metric-card-header {
-    -fx-padding: 0 0 12 0;
+    -fx-padding: 0 0 6 0;
 }
 
 .metric-card-icon {
-    -fx-font-size: 18px;
-    -fx-min-width: 28;
+    -fx-font-size: 14px;
+    -fx-min-width: 20;
     -fx-alignment: center;
 }
 
 .metric-card-title {
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-text-fill: -jasmine-text-secondary;
-}
-
-.metric-card-value {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: -jasmine-text-primary;
-    -fx-padding: 4 0 4 0;
-}
-
-.metric-card-value-warning {
-    -fx-text-fill: -jasmine-warning;
-}
-
-.metric-card-value-success {
-    -fx-text-fill: -jasmine-success;
-}
-
-.metric-card-subtitle {
-    -fx-font-size: 11px;
-    -fx-text-fill: -jasmine-text-tertiary;
-    -fx-padding: 4 0 0 0;
 }
 
 /* Card accent bars — thin colored line at top of card for visual grouping */
@@ -276,32 +272,84 @@
 }
 
 
+/* ── Card Property Rows (key-value pairs inside cards) ───────────────────── */
+
+.card-property-row {
+    -fx-padding: 2 0 2 0;
+}
+
+.card-property-key {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jasmine-text-tertiary;
+    -fx-min-width: 90;
+}
+
+.card-property-value {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jasmine-text-primary;
+}
+
+.card-property-value-accent {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jasmine-accent;
+    -fx-font-weight: bold;
+}
+
+.card-property-value-success {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jasmine-success;
+}
+
+.card-property-value-warning {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jasmine-warning;
+}
+
+
 /* ── Dashboard Grid ──────────────────────────────────────────────────────── */
 
 .dashboard-grid {
-    -fx-padding: 30;
-    -fx-hgap: 20;
-    -fx-vgap: 20;
+    -fx-padding: 16;
+    -fx-hgap: 12;
+    -fx-vgap: 12;
 }
 
 
-/* ── Footer ──────────────────────────────────────────────────────────────── */
+/* ── Status Bar (Footer) ─────────────────────────────────────────────────── */
 
-.footer {
+.status-bar {
     -fx-background-color: -jasmine-bg-secondary;
-    -fx-padding: 10 30 10 30;
+    -fx-padding: 4 16 4 16;
     -fx-border-color: -jasmine-border transparent transparent transparent;
     -fx-border-width: 1 0 0 0;
+    -fx-spacing: 16;
 }
 
-.footer-label {
-    -fx-font-size: 11px;
+.status-bar-label {
+    -fx-font-size: 10px;
     -fx-text-fill: -jasmine-text-tertiary;
 }
 
-.footer-status {
+.status-bar-value {
+    -fx-font-size: 10px;
+    -fx-text-fill: -jasmine-text-secondary;
+}
+
+.status-bar-dot {
+    -fx-font-size: 10px;
+}
+
+.status-bar-dot-success {
     -fx-text-fill: -jasmine-success;
-    -fx-font-size: 11px;
+}
+
+.status-bar-dot-warning {
+    -fx-text-fill: -jasmine-warning;
+}
+
+.status-bar-separator {
+    -fx-font-size: 10px;
+    -fx-text-fill: #3a3a5c;
 }
 
 
@@ -355,7 +403,7 @@
     -fx-border-color: -jasmine-border;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
-    -fx-padding: 8 16 8 16;
+    -fx-padding: 6 14 6 14;
     -fx-cursor: hand;
 }
 
@@ -388,7 +436,7 @@
     -fx-border-color: -jasmine-border;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
-    -fx-padding: 8 12 8 12;
+    -fx-padding: 6 10 6 10;
     -fx-prompt-text-fill: -jasmine-text-tertiary;
 }
 
@@ -405,8 +453,8 @@
     -fx-background-radius: 4;
     -fx-border-color: -jasmine-border;
     -fx-border-radius: 4;
-    -fx-padding: 8 12 8 12;
-    -fx-font-size: 12px;
+    -fx-padding: 6 10 6 10;
+    -fx-font-size: 11px;
 }
 
 

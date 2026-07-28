@@ -16,6 +16,11 @@ import java.util.stream.Collectors;
  * <p>This monitor interacts with multiple {@link java.lang.management.GarbageCollectorMXBean}
  * instances (typically there are multiple collectors active, e.g. Young and Old generation).
  *
+ * <p><strong>Sprint 2 Enhancement:</strong> Tracks the "last collection duration"
+ * heuristically by comparing the total collection count and total collection time
+ * between consecutive snapshots. When the count increases, the delta in total time
+ * approximates the most recent collection's duration.
+ *
  * @since 2.0
  */
 public class GarbageCollectorMonitor {
@@ -23,6 +28,11 @@ public class GarbageCollectorMonitor {
     private static final Logger logger = LoggerFactory.getLogger(GarbageCollectorMonitor.class);
     
     private final List<GarbageCollectorMXBean> gcBeans;
+    
+    // State for heuristic last-collection tracking
+    private long previousTotalCollections = 0;
+    private long previousTotalTimeMs = 0;
+    private long lastCollectionDurationMs = 0;
     
     /**
      * Initializes the GC monitor.
@@ -58,6 +68,16 @@ public class GarbageCollectorMonitor {
                 }
             }
             
+            // Heuristic: detect new GC events by comparing counts
+            if (totalCollections > previousTotalCollections) {
+                lastCollectionDurationMs = totalCollectionTimeMs - previousTotalTimeMs;
+                if (lastCollectionDurationMs < 0) {
+                    lastCollectionDurationMs = 0; // safety guard
+                }
+            }
+            previousTotalCollections = totalCollections;
+            previousTotalTimeMs = totalCollectionTimeMs;
+            
             String collectorNames = gcBeans.stream()
                     .map(GarbageCollectorMXBean::getName)
                     .collect(Collectors.joining(", "));
@@ -65,6 +85,7 @@ public class GarbageCollectorMonitor {
             return new GcSnapshot(
                     totalCollections,
                     totalCollectionTimeMs,
+                    lastCollectionDurationMs,
                     collectorNames,
                     System.currentTimeMillis(),
                     true
