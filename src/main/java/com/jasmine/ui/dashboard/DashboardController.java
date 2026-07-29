@@ -4,6 +4,7 @@ import com.jasmine.constants.AppConstants;
 import com.jasmine.model.MonitoringSnapshot;
 import com.jasmine.util.FormatUtil;
 import javafx.application.Platform;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -388,6 +390,26 @@ public class DashboardController {
 
         card.getChildren().add(header);
         card.getChildren().addAll(rows);
+
+        // JDS Micro-interaction: Scale on hover
+        ScaleTransition scaleIn = new ScaleTransition(Duration.millis(150), card);
+        scaleIn.setToX(1.03);
+        scaleIn.setToY(1.03);
+
+        ScaleTransition scaleOut = new ScaleTransition(Duration.millis(150), card);
+        scaleOut.setToX(1.0);
+        scaleOut.setToY(1.0);
+
+        card.setOnMouseEntered(e -> {
+            scaleOut.stop();
+            scaleIn.playFromStart();
+            card.toFront(); // Bring floating card to front
+        });
+        card.setOnMouseExited(e -> {
+            scaleIn.stop();
+            scaleOut.playFromStart();
+        });
+
         return card;
     }
 

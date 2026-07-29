@@ -84,5 +84,5 @@ public final class AppConstants {
     // ── Theme Paths ─────────────────────────────────────────────────────────
 
     /** Classpath resource path to the dark theme CSS stylesheet. */
-    public static final String DARK_THEME_PATH = "/com/jasmine/ui/themes/jasmine-dark.css";
+    public static final String DARK_THEME_PATH = "/com/jasmine/ui/themes/jds-theme.css";
 }
