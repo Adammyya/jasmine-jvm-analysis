@@ -143,6 +143,7 @@
 
 .nav-icon {
     -fx-font-size: 14px;
+    -fx-font-weight: 300; /* Thin outline style */
     -fx-min-width: 24;
     -fx-alignment: center;
 }
@@ -176,6 +177,7 @@
 }
 
 .toolbar-value {
+    -fx-font-family: "JetBrains Mono", monospace;
     -fx-font-size: 11px;
     -fx-text-fill: -jds-accent-cyan;
     -fx-font-weight: bold;
@@ -208,6 +210,7 @@
 
 .metric-card-icon {
     -fx-font-size: 16px;
+    -fx-font-weight: 300;
     -fx-min-width: 24;
     -fx-alignment: center;
     -fx-text-fill: -jds-text-primary;
@@ -251,12 +254,14 @@
 }
 
 .card-property-value {
+    -fx-font-family: "JetBrains Mono", monospace;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: -jds-text-primary;
 }
 
 .card-property-value-accent {
+    -fx-font-family: "JetBrains Mono", monospace;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: -jds-accent-cyan;
@@ -264,6 +269,7 @@
 }
 
 .card-property-value-success {
+    -fx-font-family: "JetBrains Mono", monospace;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: -jds-status-healthy;
@@ -271,6 +277,7 @@
 }
 
 .card-property-value-warning {
+    -fx-font-family: "JetBrains Mono", monospace;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: -jds-status-warning;
@@ -304,6 +311,7 @@
 }
 
 .status-bar-value {
+    -fx-font-family: "JetBrains Mono", monospace;
     -fx-font-size: 11px;
     -fx-font-weight: bold;
     -fx-text-fill: -jds-text-primary;

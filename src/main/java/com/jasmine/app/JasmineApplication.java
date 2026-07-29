@@ -5,7 +5,9 @@ import com.jasmine.constants.AppConstants;
 import com.jasmine.ui.dashboard.DashboardController;
 import com.jasmine.service.MonitoringService;
 import com.jasmine.scheduler.MonitoringScheduler;
+import com.jasmine.ui.theme.AnimationManager;
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Rectangle2D;
@@ -105,9 +107,12 @@ public class JasmineApplication extends Application {
         logger.info("Building application UI...");
 
         try {
+            // Start JDS global 60 FPS animation loop
+            AnimationManager.getInstance().start();
+
             // Build the dashboard (the main UI shell)
             DashboardController dashboardController = new DashboardController();
-            BorderPane rootLayout = dashboardController.buildView();
+            Parent rootLayout = (Parent) dashboardController.getView();
 
             // Create the scene
             Scene scene = new Scene(
@@ -127,7 +132,7 @@ public class JasmineApplication extends Application {
 
             // Start background monitoring scheduler
             monitoringScheduler = new MonitoringScheduler(monitoringService, config.getRefreshIntervalMs());
-            monitoringScheduler.start(dashboardController::update);
+            monitoringScheduler.start(dashboardController::updateData);
 
             logger.info("JASMINE application started successfully. Window: {}x{}",
                     (int) primaryStage.getWidth(), (int) primaryStage.getHeight());
@@ -156,6 +161,8 @@ public class JasmineApplication extends Application {
         if (monitoringScheduler != null) {
             monitoringScheduler.stop();
         }
+        
+        AnimationManager.getInstance().stop();
 
         // Phase 2+: Close database connections
         // Phase 2+: Persist window position/size to preferences
