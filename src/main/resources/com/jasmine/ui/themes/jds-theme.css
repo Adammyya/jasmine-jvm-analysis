@@ -1,0 +1,372 @@
+/*
+ * ============================================================================
+ * JASMINE DESIGN SYSTEM (JDS) — Premium Futuristic Interface
+ * ============================================================================
+ *
+ * Inspiration:
+ *   - Holographic / Vision Pro / Mission Control
+ *   - Deep space backgrounds
+ *   - Glass-inspired translucent panels
+ *   - Thin illuminated borders with soft bloom
+ *
+ * Color Palette:
+ *   - Space Base:      #0A0D14 to #111625 (deep, dark blue-black)
+ *   - Glass Panel:     rgba(25, 30, 50, 0.5) with soft light refraction
+ *   - Primary Accent:  #00E5FF (Cyan)
+ *   - Aurora Accent:   #B388FF (Aurora Purple)
+ *   - Text Primary:    #FFFFFF
+ *   - Text Secondary:  #A0AABF
+ *
+ * Performance Note:
+ *   Uses high-performance faux-glass pseudo-rendering instead of GPU-heavy 
+ *   Gaussian blur filters to maintain a smooth 60 FPS frame rate.
+ *
+ * ============================================================================
+ */
+
+
+/* ── Global Reset & Root ─────────────────────────────────────────────────── */
+
+.root {
+    /* Deep space gradient background */
+    -fx-background-color: linear-gradient(to bottom right, #0A0D14, #111625, #0A0D14);
+    
+    /* Typography — Fallbacks configured for modern OS */
+    -fx-font-family: "Space Grotesk", "Inter", -apple-system, "Segoe UI", sans-serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #FFFFFF;
+
+    /* JDS Tokens */
+    -jds-space-dark: #0A0D14;
+    -jds-space-light: #111625;
+    
+    -jds-glass-bg: linear-gradient(to bottom right, rgba(30, 38, 56, 0.6), rgba(15, 20, 35, 0.4));
+    -jds-glass-bg-hover: linear-gradient(to bottom right, rgba(40, 50, 70, 0.7), rgba(20, 25, 45, 0.5));
+    
+    -jds-refraction-border: linear-gradient(to bottom right, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.02));
+    -jds-accent-cyan: #00E5FF;
+    -jds-accent-aurora: #B388FF;
+    
+    -jds-text-primary: #FFFFFF;
+    -jds-text-secondary: #A0AABF;
+    -jds-text-muted: rgba(160, 170, 191, 0.5);
+
+    -jds-status-healthy: #00E5FF;
+    -jds-status-warning: #FFB300;
+    -jds-status-danger:  #FF1744;
+}
+
+/* ── Labels ──────────────────────────────────────────────────────────────── */
+
+.label {
+    -fx-text-fill: -jds-text-primary;
+}
+
+/* ── App Background Overrides ────────────────────────────────────────────── */
+
+.content-area {
+    -fx-background-color: transparent; /* Let the root space gradient shine through */
+    -fx-padding: 0;
+}
+
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────── */
+
+.sidebar {
+    -fx-background-color: rgba(15, 20, 30, 0.7); /* Darker glass for sidebar */
+    -fx-border-color: transparent rgba(255, 255, 255, 0.05) transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+
+.sidebar-header {
+    -fx-padding: 24 20 20 20;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.05) transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.sidebar-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -jds-accent-cyan;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 229, 255, 0.4), 10, 0, 0, 0); /* Cyan Glow */
+}
+
+.sidebar-subtitle {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -jds-accent-aurora;
+    -fx-padding: 2 0 0 0;
+    -fx-letter-spacing: 2px;
+}
+
+.sidebar-section-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -jds-text-muted;
+    -fx-padding: 20 20 8 20;
+    -fx-letter-spacing: 1px;
+}
+
+.nav-item {
+    -fx-background-color: transparent;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+}
+
+.nav-item .label {
+    -fx-text-fill: -jds-text-secondary;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+}
+
+.nav-item:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+}
+
+.nav-item:hover .label {
+    -fx-text-fill: -jds-text-primary;
+}
+
+.nav-item-active {
+    -fx-background-color: linear-gradient(to right, rgba(0, 229, 255, 0.1), transparent);
+    -fx-border-color: transparent transparent transparent -jds-accent-cyan;
+    -fx-border-width: 0 0 0 3;
+}
+
+.nav-item-active .label,
+.nav-item-active:hover .label {
+    -fx-text-fill: -jds-accent-cyan;
+    -fx-font-weight: 700;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 229, 255, 0.3), 5, 0, 0, 0);
+}
+
+.nav-icon {
+    -fx-font-size: 14px;
+    -fx-min-width: 24;
+    -fx-alignment: center;
+}
+
+
+/* ── Toolbar / Page Header ───────────────────────────────────────────────── */
+
+.toolbar {
+    -fx-background-color: rgba(10, 13, 20, 0.4);
+    -fx-padding: 12 24 12 24;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.05) transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-spacing: 24;
+}
+
+.toolbar-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -jds-text-primary;
+    -fx-letter-spacing: 0.5px;
+}
+
+.toolbar-separator {
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jds-text-secondary;
+}
+
+.toolbar-value {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jds-accent-cyan;
+    -fx-font-weight: bold;
+}
+
+
+/* ── Metric Cards (Holographic Glass) ────────────────────────────────────── */
+
+.metric-card {
+    -fx-background-color: -jds-glass-bg;
+    -fx-background-radius: 12;
+    -fx-border-color: -jds-refraction-border;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 16;
+    /* Soft ambient shadow to separate glass from deep space */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 10);
+}
+
+.metric-card:hover {
+    -fx-background-color: -jds-glass-bg-hover;
+}
+
+.metric-card-header {
+    -fx-padding: 0 0 12 0;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.05) transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-margin: 0 0 12 0;
+}
+
+.metric-card-icon {
+    -fx-font-size: 16px;
+    -fx-min-width: 24;
+    -fx-alignment: center;
+    -fx-text-fill: -jds-text-primary;
+}
+
+.metric-card-title {
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -jds-text-primary;
+    -fx-letter-spacing: 1px;
+    -fx-text-transform: uppercase;
+}
+
+/* Card Illumination Borders (Replaces old flat accents) */
+.metric-card-accent-blue {
+    -fx-border-color: -jds-accent-cyan -jds-refraction-border -jds-refraction-border -jds-refraction-border;
+    -fx-border-width: 2 1 1 1;
+}
+
+.metric-card-accent-green {
+    -fx-border-color: -jds-accent-aurora -jds-refraction-border -jds-refraction-border -jds-refraction-border;
+    -fx-border-width: 2 1 1 1;
+}
+
+.metric-card-accent-orange {
+    -fx-border-color: -jds-status-warning -jds-refraction-border -jds-refraction-border -jds-refraction-border;
+    -fx-border-width: 2 1 1 1;
+}
+
+
+/* ── Card Property Rows ──────────────────────────────────────────────────── */
+
+.card-property-row {
+    -fx-padding: 6 0 6 0;
+}
+
+.card-property-key {
+    -fx-font-size: 12px;
+    -fx-text-fill: -jds-text-secondary;
+    -fx-min-width: 110;
+}
+
+.card-property-value {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -jds-text-primary;
+}
+
+.card-property-value-accent {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -jds-accent-cyan;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 229, 255, 0.4), 8, 0, 0, 0);
+}
+
+.card-property-value-success {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -jds-status-healthy;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 229, 255, 0.4), 8, 0, 0, 0); /* Cyan glow instead of green */
+}
+
+.card-property-value-warning {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -jds-status-warning;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 179, 0, 0.4), 8, 0, 0, 0);
+}
+
+
+/* ── Dashboard Grid ──────────────────────────────────────────────────────── */
+
+.dashboard-grid {
+    /* Larger padding to let the cards float */
+    -fx-padding: 32;
+    -fx-hgap: 24;
+    -fx-vgap: 24;
+}
+
+
+/* ── Status Bar (Footer) ─────────────────────────────────────────────────── */
+
+.status-bar {
+    -fx-background-color: rgba(10, 13, 20, 0.4);
+    -fx-padding: 8 24 8 24;
+    -fx-border-color: rgba(255, 255, 255, 0.05) transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-spacing: 24;
+}
+
+.status-bar-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: -jds-text-secondary;
+}
+
+.status-bar-value {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -jds-text-primary;
+}
+
+.status-bar-dot {
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+}
+
+.status-bar-dot-success {
+    -fx-text-fill: -jds-status-healthy;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 229, 255, 0.5), 5, 0, 0, 0);
+}
+
+.status-bar-dot-warning {
+    -fx-text-fill: -jds-status-warning;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 179, 0, 0.5), 5, 0, 0, 0);
+}
+
+.status-bar-separator {
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(255, 255, 255, 0.1);
+}
+
+
+/* ── Transparent ScrollPane ──────────────────────────────────────────────── */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 4;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}

@@ -41,13 +41,14 @@ public final class AppConstants {
 
     /**
      * Minimum window width in pixels.
-     * Chosen to accommodate the sidebar (240px) plus a usable content area
-     * on a 1366×768 display, the most common laptop resolution.
+    /**
+     * Minimum window width in pixels.
+     * Reduced to accommodate lower resolution screens or high display scaling.
      */
-    public static final double WINDOW_MIN_WIDTH = 1280;
+    public static final double WINDOW_MIN_WIDTH = 960;
 
     /** Minimum window height in pixels. */
-    public static final double WINDOW_MIN_HEIGHT = 720;
+    public static final double WINDOW_MIN_HEIGHT = 600;
 
     /**
      * Default window width in pixels.

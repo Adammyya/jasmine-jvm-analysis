@@ -8,6 +8,8 @@ import com.jasmine.scheduler.MonitoringScheduler;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -192,8 +194,21 @@ public class JasmineApplication extends Application {
         stage.setTitle(AppConstants.APP_NAME + " — " + AppConstants.APP_SUBTITLE);
         stage.setScene(scene);
 
-        // Enforce minimum dimensions to prevent layout breakage
-        stage.setMinWidth(AppConstants.WINDOW_MIN_WIDTH);
-        stage.setMinHeight(AppConstants.WINDOW_MIN_HEIGHT);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        
+        // Ensure minimum dimensions don't exceed actual screen size
+        double minWidth = Math.min(AppConstants.WINDOW_MIN_WIDTH, screenBounds.getWidth());
+        double minHeight = Math.min(AppConstants.WINDOW_MIN_HEIGHT, screenBounds.getHeight());
+        stage.setMinWidth(minWidth);
+        stage.setMinHeight(minHeight);
+
+        // Set to 85% of screen bounds and center
+        double targetWidth = Math.max(minWidth, screenBounds.getWidth() * 0.85);
+        double targetHeight = Math.max(minHeight, screenBounds.getHeight() * 0.85);
+
+        stage.setWidth(targetWidth);
+        stage.setHeight(targetHeight);
+
+        stage.centerOnScreen();
     }
 }
